@@ -1,0 +1,19 @@
+#board {
+	max-width: 800px;
+}
+
+.player {
+	flex-grow: 1;
+}
+
+.words {
+	display: inline-flex;
+}
+
+.admin_player {
+	background-color: lightskyblue;
+}
+
+.absent {
+	background-color: gray;
+}
