@@ -22,6 +22,10 @@ $(document).ready(function() {
 	});
 });
 
+function newState() {
+	return {cheats: 0, words: []};
+}
+
 function prepare() {
 	state.players.forEach(function(player) {
 		player.state = undefined;
@@ -59,7 +63,6 @@ function update() {
 	$('#players').empty();
 	for (var i = 0; i < state.players.length; i++) {
 		var player = state.players[i];
-		if (!player.state) player.state = { cheats: 0, words: [] };
 		var score = 0;
 		for (var j = 0; j < player.state.words.length; j++) {
 			score += player.state.words[j][0].length - 2;
