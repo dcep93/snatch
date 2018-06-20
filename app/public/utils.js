@@ -1,5 +1,5 @@
 getJSONs([
-	{ path: '/socket_games/words/sowpods.json', name: 'words' },
+	{ path: 'words.json', name: 'words' },
 	{ path: 'distribution.json', name: 'distribution' },
 ]);
 
