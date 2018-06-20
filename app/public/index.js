@@ -117,7 +117,11 @@ function submit() {
 			$('#word').val('');
 			state.lastWord = word.length;
 			sendState('spelled [' + word + ']' + source);
+		} else {
+			alert('can\'t spell that word!');
 		}
+	} else {
+		alert('not a word!');
 	}
 	return false;
 }
