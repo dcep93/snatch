@@ -110,22 +110,24 @@ function flip() {
 }
 
 function submit() {
-	var word = $('#word')
-		.val()
-		.toUpperCase();
-	if (isWord(word)) {
-		var source = spell(word);
-		if (source !== false) {
-			$('#cheats_div').hide();
-			$('#word').val('');
-			state.lastWord = word.length;
-			sendState('spelled [' + word + ']' + source);
+	setTimeout(function() {
+		var word = $('#word')
+			.val()
+			.toUpperCase();
+		if (isWord(word)) {
+			var source = spell(word);
+			if (source !== false) {
+				$('#cheats_div').hide();
+				$('#word').val('');
+				state.lastWord = word.length;
+				sendState('spelled [' + word + ']' + source);
+			} else {
+				alert('can\'t spell that word!');
+			}
 		} else {
-			alert('can\'t spell that word!');
+			alert('not a word!');
 		}
-	} else {
-		alert('not a word!');
-	}
+	});
 	return false;
 }
 
