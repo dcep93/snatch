@@ -119,6 +119,7 @@ function submit() {
 			sendState('spelled [' + word + ']' + source);
 		}
 	}
+	return false;
 }
 
 function cheat() {
