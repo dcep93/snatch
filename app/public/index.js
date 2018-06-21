@@ -23,7 +23,7 @@ $(document).ready(function() {
 });
 
 function newState() {
-	return {cheats: 0, words: []};
+	return {cheats: 0, words: [], score: 0};
 }
 
 function prepare() {
@@ -63,7 +63,8 @@ function update() {
 	$('#players').empty();
 	for (var i = 0; i < state.players.length; i++) {
 		var player = state.players[i];
-		var score = 0;
+		player.state.score = player.state.score || 0; // todo correct, not backwards compatible
+		var score = player.state.score;
 		for (var j = 0; j < player.state.words.length; j++) {
 			score += player.state.words[j][0].length - 2;
 		}
@@ -125,6 +126,8 @@ function submit() {
 				alert('can\'t spell that word!');
 			}
 		} else {
+			me().state.score--;
+			sendState('tried to spell [' + word + ']');
 			alert('not a word!');
 		}
 	});
