@@ -60,7 +60,7 @@ function update() {
 			.text(state.revealed[i])
 			.appendTo('#board');
 	}
-	$('#players').empty();
+	$('#players_state').empty();
 	for (var i = 0; i < state.players.length; i++) {
 		var player = state.players[i];
 		player.state.score = player.state.score || 0; // todo correct, not backwards compatible
@@ -83,9 +83,9 @@ function update() {
 					)
 			)
 			.attr('index', i)
-			.addClass('player')
+			.addClass('player_div')
 			.addClass('bubble')
-			.appendTo('#players');
+			.appendTo('#players_state');
 		if (isAdmin(i)) playerDiv.addClass('admin_player');
 		if (!player.present) playerDiv.addClass('absent');
 		if (player.state.words.length > 0) {

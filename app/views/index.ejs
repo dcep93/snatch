@@ -8,31 +8,40 @@
 	<script type="text/javascript" src="utils.js"></script>
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
+<body>
 
 <%- include(views+'/pre.html') %>
 
+<div id="global_controls" class="bubble inline">
+	<div>
+		<p>Players:</p>
+		<div id="players" class="bubble inline"></div>
+	</div>
+	<div class="space">
+		<button id="door"></button>
+		<button id="leave">Leave</button>
+	</div>
+	<div class="space">
+		<span>Minimum Word Length: </span>
+		<input id="word_length" class="control_number" type="number" autocomplete="off" value="4">
+	</div>
+	<div class="space">
+		<span>Grace Period Seconds: </span>
+		<input id="grace_period" class="control_number" type="number" autocomplete="off" value="3">
+	</div>
+</div>
+
 <div id="controls" class="flex">
+	<div id="game_controls_div"></div>
 	<div class="bubble inline">
 		<div class="space">
-			<button id="door"></button>
-			<button id="leave">Leave</button>
+			<p>Current Player: <span id="current_player"></span></p>
+			<p>Remaining: <span id="remaining"></span></p>
 			<button id="reset">Start Over</button>
 			<button id="shuffle">Shuffle</button>
 			<button id="flip">Flip</button>
 			<button id="cheat">Cheat</button>
 		</div>
-		<div class="space">
-			<span>Minimum Word Length: </span>
-			<input id="word_length" class="control_number" type="number" autocomplete="off" value="4">
-		</div>
-		<div class="space">
-			<span>Grace Period Seconds: </span>
-			<input id="grace_period" class="control_number" type="number" autocomplete="off" value="3">
-		</div>
-	</div>
-	<div class="bubble inline">
-		<p>Current Player: <span id="current_player"></span></p>
-		<p>Remaining: <span id="remaining"></span></p>
 	</div>
 </div>
 <form id="submit" class="bubble inline">

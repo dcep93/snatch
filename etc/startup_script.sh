@@ -15,6 +15,6 @@ echo "$(date) startup" | tee -a /var/log/snatch.log
 iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 8080
 iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-ports 8080
 
-screen -dm bash -c "set -x; nodemon $INDEX; exec sh"
+screen -dm bash -c "set -x; nodemon --delay 1 $INDEX; exec sh"
 
 echo "$(date) success" | tee -a /var/log/snatch.log
