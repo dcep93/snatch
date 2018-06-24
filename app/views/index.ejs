@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+
+<%- include(views+'/head.html') %>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<%- include(views+'/pre.html') %>
+
 <div id="controls" class="flex">
 	<div class="bubble inline">
 		<div class="space">
@@ -38,3 +51,5 @@
 	<p>CHEATS:</p>
 	<div id="cheats" class="bubble inline"></div>
 </div>
+
+<%- include(views+'/post.html') %>

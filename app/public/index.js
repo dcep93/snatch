@@ -23,7 +23,7 @@ $(document).ready(function() {
 });
 
 function newState() {
-	return {cheats: 0, words: [], score: 0};
+	return { cheats: 0, words: [], score: 0 };
 }
 
 function prepare() {
@@ -41,7 +41,7 @@ function prepare() {
 	shuffleArray(state.pile);
 
 	state.revealed = [];
-	state.currentPlayer = state.admin;
+	state.currentPlayer = adminIndex;
 	state.gracePeriod = 5;
 	state.minimumWordLength = 4;
 	state.lastWord = -1;
@@ -86,7 +86,7 @@ function update() {
 			.addClass('player')
 			.addClass('bubble')
 			.appendTo('#players');
-		if (i === state.admin) playerDiv.addClass('admin_player');
+		if (isAdmin(i)) playerDiv.addClass('admin_player');
 		if (!player.present) playerDiv.addClass('absent');
 		if (player.state.words.length > 0) {
 			var wordsDiv = $('<div>')
@@ -102,7 +102,8 @@ function update() {
 }
 
 function flip() {
-	if (isMyTurn(true) && state.pile.length) {
+	if (isMyTurn() && state.pile.length) {
+		advanceTurn();
 		var letter = state.pile.pop();
 		state.revealed.push(letter);
 		state.lastWord = -1;
@@ -123,7 +124,7 @@ function submit() {
 				state.lastWord = word.length;
 				sendState('spelled [' + word + ']' + source);
 			} else {
-				alert('can\'t spell that word!');
+				alert("can't spell that word!");
 			}
 		} else {
 			me().state.score--;
