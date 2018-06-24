@@ -28,7 +28,7 @@ function newState() {
 
 function prepare() {
 	state.players.forEach(function(player) {
-		player.state = undefined;
+		player.state = newState();
 	});
 
 	state.pile = [];
