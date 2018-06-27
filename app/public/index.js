@@ -189,6 +189,6 @@ var oldAdvanceTurn = advanceTurn;
 advanceTurn = function() {
 	while (true) {
 		oldAdvanceTurn();
-		if (state.players[state.currentPlayer].present) break;
+		if (current().present) break;
 	}
 };

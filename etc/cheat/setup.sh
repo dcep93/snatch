@@ -36,17 +36,14 @@ systemctl enable cheat
 
 # cheat cmd
 apt-get install -y jq
-cp -p $DIR/cheat.sh /usr/local/bin/cheat
-
-# unzip sowpods
-gzip -k -d $DIR/../sowpods.txt.gz
+ln -s $DIR/cheat.sh /usr/local/bin/cheat
 
 # build trie
 echo
-echo "python ~/snatch/etc/buildTrie.py ~/snatch/etc/cheat/app/trie.json < ~/snatch/etc/sowpods.txt"
+echo "python $DIR/../buildTrie.py $DIR/../../public/words/sowpods.json $DIR/app/trie.json"
 
-# alternatively
-# gcloud compute scp trie.json.gz cheat:snatch/etc/cheat/app/trie.json.gz
-# gzip -k -d ~/snatch/etc/cheat/app/trie.json.gz
+echo
+echo "alternatively"
+echo "gcloud compute scp trie.json.gz cheat:$DIR/app/trie.json.gz && gzip -k -d $DIR/app/trie.json.gz"
 
 systemctl start cheat

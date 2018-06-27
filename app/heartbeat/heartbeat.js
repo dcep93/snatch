@@ -13,12 +13,12 @@ function beat(req, res, next) {
 	next();
 }
 
-function kill(req, res) {
+function kill(res) {
 	timeout = undefined;
 	exec('kill', path.join(__dirname, 'scripts', 'kill.sh'), res);
 }
 
-function revive(req, res) {
+function revive(res) {
 	exec('revive', path.join(__dirname, 'scripts', 'revive.sh'), res);
 }
 

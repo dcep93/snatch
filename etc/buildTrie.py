@@ -10,11 +10,13 @@ targetCount = collections.defaultdict(int)
 sourceToTarget = {}
 
 def main():
-	fh = open(sys.argv[1], 'w') if len(sys.argv) > 1 else None
+	sowpods = open(sys.argv[1])
+	words = json.load(sowpods)
+	fh = open(sys.argv[2], 'w') if len(sys.argv) > 2 else None
 	p('building')
 	global bigD
 	bigD = trie()
-	num = build(bigD)
+	num = build(bigD, words)
 	p('built')
 	numNodes = -1 # getNumNodes(bigD)
 	p('trimming alts %d' % numNodes)
@@ -38,11 +40,11 @@ def p(string):
 def trie():
 	return collections.defaultdict(trie)
 
-def build(d):
+def build(d, words):
 	seen = {}
 	num = 0
 	skipped = 0
-	words = sorted(sys.stdin.read().split('\n'), lambda a,b: len(a)-len(b))
+	words = sorted(words, lambda a,b: len(a)-len(b))
 	for word in words:
 		if word:
 			num += 1
