@@ -13,14 +13,7 @@
 <%- include(views+'/pre.html') %>
 
 <div id="global_controls" class="bubble inline">
-	<div>
-		<p>Players:</p>
-		<div id="players" class="bubble inline"></div>
-	</div>
-	<div class="space">
-		<button id="door"></button>
-		<button id="leave">Leave</button>
-	</div>
+	<%- include(views+'/global_controls.html') %>
 	<div class="space">
 		<span>Minimum Word Length: </span>
 		<input id="word_length" class="control_number" type="number" autocomplete="off" value="4">

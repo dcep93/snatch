@@ -5,8 +5,6 @@
 // lastWord int
 
 $(document).ready(function() {
-	$('#door').click(door);
-	$('#leave').click(leave);
 	$('#reset').click(prepare);
 	$('#flip').click(flip);
 	$('#submit').submit(submit);
