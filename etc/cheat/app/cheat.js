@@ -61,7 +61,7 @@ function findWords(words, letters) {
 			foundWords.add('-' + word);
 			continue;
 		}
-		if (!isWord(word, t)) foundWords.add('-' + word);
+		if (word !== '' && !isWord(word, t)) foundWords.add(MAGIC + word);
 		if (!seenChains.has(chain)) {
 			seenChains.add(chain);
 			addWords(t, chain, letters, MAGIC, foundWords, new Set());
