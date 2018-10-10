@@ -9,5 +9,9 @@ var cheat = express.Router();
 cheat.use('/revive', socket.protect(heartbeat.revive));
 cheat.use('/kill', socket.protect(heartbeat.kill));
 
+cheat.get('/bee', function(req, res) {
+	res.sendFile(__dirname + '/public/bee.html');
+});
+
 cheat.use(proxy('cheat:8000'));
 module.exports = cheat;

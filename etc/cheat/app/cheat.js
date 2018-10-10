@@ -19,6 +19,7 @@ router.post('/', function(req, res) {
 	console.log(req.body);
 	var words = req.body.words;
 	var rawLetters = req.body.letters;
+	var letters;
 	if (rawLetters !== undefined) {
 		if (typeof rawLetters !== 'string') rawLetters = rawLetters.join('');
 		rawLetters = rawLetters.toUpperCase();
@@ -43,6 +44,49 @@ router.post('/', function(req, res) {
 		duration: end - start,
 		count: foundWords.size,
 	};
+	res.send(JSON.stringify(response) + '\n');
+});
+
+router.post('/bee', function(req, res) {
+	if (trie === undefined) return res.sendStatus(503);
+	console.log('bee', req.body);
+
+	var rawLetters = req.body.letters;
+	if (rawLetters === undefined) return res.sendStatus(400);
+
+	if (typeof rawLetters !== 'string') rawLetters = rawLetters.join('');
+	rawLetters = rawLetters.toUpperCase();
+	if (rawLetters.length === 0) return res.sendStatus(400);
+	var centerLetter = rawLetters[0];
+
+	var letters = {};
+	for (var i = 0; i < rawLetters.length; i++) {
+		var letter = rawLetters[i];
+		letters[letter] = -1;
+	}
+	var words = [''];
+
+	var start = new Date();
+	var foundWords = findWords(words, letters);
+
+	var validWords = [];
+	for (var word in foundWords) {
+		if (word.indexOf(centerLetter) !== -1) {
+			validWords.push(word);
+		}
+	}
+	validWords.sort(function(w1, w2) {
+		return w1.length - w2.length;
+	});
+
+	var end = new Date();
+
+	var response = {
+		words: validWords,
+		duration: end - start,
+		count: validWords.length,
+	};
+
 	res.send(JSON.stringify(response) + '\n');
 });
 
