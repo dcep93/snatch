@@ -70,7 +70,7 @@ router.post('/bee', function(req, res) {
 	var foundWords = findWords(words, letters);
 
 	var validWords = [];
-	for (var word in foundWords) {
+	for (var word of foundWords) {
 		if (word.indexOf(centerLetter) !== -1) {
 			validWords.push(word);
 		}
