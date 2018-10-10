@@ -47,6 +47,7 @@ def build(d, words):
 	words = sorted(words, lambda a,b: len(a)-len(b))
 	for word in words:
 		if word:
+			word = word.upper()
 			num += 1
 			if num % 1000 == 0: p('\t%s %d\t%d/%d\t%0.2f%%' % (word, len(word), skipped, num, 100*float(skipped)/num))
 			sortedLetters = ''.join(sorted(word))
