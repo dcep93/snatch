@@ -16,6 +16,7 @@ var port = process.env.port || 8000;
 
 var app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.use(cheat);
 
