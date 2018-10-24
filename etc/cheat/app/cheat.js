@@ -71,23 +71,34 @@ router.post('/bee', function(req, res) {
 
 	var validWords = [];
 	for (var word of foundWords) {
-		if (word.indexOf(centerLetter) !== -1) {
-			validWords.push(word);
-		}
+		if (word.indexOf(centerLetter) !== -1) validWords.push(word);
 	}
 	validWords.sort(function(w1, w2) {
 		return w1.length - w2.length;
 	});
 
+	var pangrams = [];
+	for (var word of validWords) {
+		var isPangram = true;
+		for (var letter of rawLetters) {
+			if (word.indexOf(letter) === -1) {
+				isPangram = false;
+				break;
+			}
+		}
+		if (isPangram) pangrams.push(word);
+	}
+
 	var end = new Date();
 
 	var response = {
 		words: validWords,
+		pangrams: pangrams,
 		duration: end - start,
 		count: validWords.length,
 	};
 
-	res.send(JSON.stringify(response) + '\n');
+	res.send(JSON.stringify(response, null, '\t') + '\n');
 });
 
 function findWords(words, letters) {
