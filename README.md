@@ -1,7 +1,9 @@
 # Snatch
 
 ## On Cheat Server
+run `journalctl -u cheat.service` to see logs
 machine should have 16GB memory
+
 ### install git
 `sudo apt install -y git-all`
 ### clone this repo
