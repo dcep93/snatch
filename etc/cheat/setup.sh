@@ -40,7 +40,7 @@ ln -s $DIR/cheat.sh /usr/local/bin/cheat
 
 # build trie
 echo
-echo "python $DIR/../buildTrie.py $DIR/../../public/words/sowpods.json $DIR/app/trie.json"
+echo "python $DIR/../buildTrie.py $DIR/../../app/public/words.json $DIR/app/trie.json"
 
 echo
 echo "alternatively"
