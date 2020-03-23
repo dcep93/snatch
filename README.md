@@ -15,6 +15,7 @@ dont forget to build the trie (takes 20 min)
 ## on redeploy
 ### On Cheat Server
   - [create service account](https://console.cloud.google.com/iam-admin/serviceaccounts?folder&organizationId)
+  - need a service account with compute admin (I think)
 ### On Socket Games Server
   - run [`etc/cheat/setup_heartbeat.sh <key_file>`](etc/cheat/setup_heartbeat.sh)
 
