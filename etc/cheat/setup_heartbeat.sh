@@ -27,7 +27,7 @@ gcloud auth activate-service-account --key-file=$KEY_FILE
 
 gcloud config set project $PROJECT_ID
 
-INSTANCE_CONFIG=$(gcloud compute instances list | sed -n 2p)
+INSTANCE_CONFIG=$(gcloud compute instances list | grep "$CHEAT_MACHINE")
 
 ZONE=$(echo $INSTANCE_CONFIG | awk '{print $2}')
 gcloud config set compute/zone $ZONE
