@@ -10,6 +10,8 @@ machine should have 16GB memory
 [`./setup.sh`](setup.sh)
 [`etc/cheat/setup.sh`](etc/cheat/setup.sh)
 
+dont forget to build the trie (takes 20 min)
+
 ## on redeploy
 ### On Cheat Server
   - [create service account](https://console.cloud.google.com/iam-admin/serviceaccounts?folder&organizationId)
