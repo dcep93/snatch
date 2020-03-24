@@ -1,14 +1,14 @@
 getJSONs([
-	{ path: 'words.json', name: 'words' },
-	{ path: 'distribution.json', name: 'distribution' },
+	{ path: "words.json", name: "words" },
+	{ path: "distribution.json", name: "distribution" }
 ]);
 
 function getDefinition(word) {
 	var definitions = getDefinitionHelper(word);
 	if (definitions.length === 0) {
-		return 'No definition found';
+		return "No definition found";
 	} else {
-		return definitions.join('\n\n');
+		return definitions.join("\n\n");
 	}
 }
 
@@ -47,11 +47,11 @@ function spell(word, forCheat) {
 		return source;
 	}
 
-	for (var i = 0; i < states.length; i++) {
-		var obj = states[i];
+	for (var i = 0; i < stateHistory.length; i++) {
+		var obj = stateHistory[i];
 		if (obj.invalid) continue;
 		if (date - obj.date > state.gracePeriod * 1000) break;
-		var stateCopy = $.extend(true, null, states[i].state);
+		var stateCopy = $.extend(true, null, obj.state);
 		source = spellHelper(word, forCheat, stateCopy);
 		if (source !== false) {
 			if (!forCheat) {
@@ -59,7 +59,7 @@ function spell(word, forCheat) {
 				state = stateCopy;
 				state.id = id;
 			}
-			return source + ' from state (' + states[i].id + ')';
+			return source + " from state (" + obj.id + ")";
 		}
 		if (
 			obj.locked ||
@@ -87,17 +87,17 @@ function spellHelper(word, forCheat, stateCopy) {
 					var stolenWordArray = player.state.words.splice(i, 1);
 					snatch(stolenWordArray[0], remainingLetters, stateCopy);
 				}
-				return ' using [' + currentWord + '] from ' + player.name;
+				return " using [" + currentWord + "] from " + player.name;
 			}
 		}
 	}
 
-	var remainingLetters = canSpell(word, '', stateCopy);
+	var remainingLetters = canSpell(word, "", stateCopy);
 	if (remainingLetters !== false) {
 		if (!forCheat) {
 			snatch([word], remainingLetters, stateCopy);
 		}
-		return '';
+		return "";
 	}
 
 	return false;
@@ -202,13 +202,13 @@ function cheatHelper(callback) {
 		}
 	}
 
-	$.ajax('cheat', {
+	$.ajax("cheat", {
 		data: JSON.stringify({
 			letters: state.revealed,
-			words: spelledWords,
+			words: spelledWords
 		}),
-		contentType: 'application/json',
-		method: 'POST',
+		contentType: "application/json",
+		method: "POST",
 		success: function(response) {
 			var data = JSON.parse(response);
 			console.log(data);
@@ -221,6 +221,6 @@ function cheatHelper(callback) {
 		},
 		error: function(jqXHR, status, error) {
 			alert(error);
-		},
+		}
 	});
 }
