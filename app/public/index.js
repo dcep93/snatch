@@ -5,13 +5,13 @@
 // lastWord int
 
 $(document).ready(function() {
-	$('#reset').click(prepare);
-	$('#flip').click(flip);
-	$('#submit').submit(submit);
-	$('#cheat').click(cheat);
-	$('#shuffle').click(shuffle);
-	$('#word_length').on('input', wordLengthF);
-	$('#grace_period').on('input', gracePeriodF);
+	$("#reset").click(prepare);
+	$("#flip").click(flip);
+	$("#submit").submit(submit);
+	$("#cheat").click(cheat);
+	$("#shuffle").click(shuffle);
+	$("#word_length").on("input", wordLengthF);
+	$("#grace_period").on("input", gracePeriodF);
 	$(document).keydown(function(e) {
 		if (state.currentPlayer !== undefined && e.keyCode === 32) {
 			flip();
@@ -44,21 +44,21 @@ function prepare() {
 	state.minimumWordLength = 4;
 	state.lastWord = -1;
 
-	sendState('prepare');
+	sendState("prepare");
 }
 
 function update() {
-	$('#word_length').val(state.minimumWordLength);
-	$('#grace_period').val(state.gracePeriod);
-	$('#remaining').text(state.pile.length);
-	$('#board').empty();
+	$("#word_length").val(state.minimumWordLength);
+	$("#grace_period").val(state.gracePeriod);
+	$("#remaining").text(state.pile.length);
+	$("#board").empty();
 	for (var i = 0; i < state.revealed.length; i++) {
-		$('<span>')
-			.addClass('space')
+		$("<span>")
+			.addClass("space")
 			.text(state.revealed[i])
-			.appendTo('#board');
+			.appendTo("#board");
 	}
-	$('#players_state').empty();
+	$("#players_state").empty();
 	for (var i = 0; i < state.players.length; i++) {
 		var player = state.players[i];
 		player.state.score = player.state.score || 0; // todo correct, not backwards compatible
@@ -66,30 +66,30 @@ function update() {
 		for (var j = 0; j < player.state.words.length; j++) {
 			score += player.state.words[j][0].length - 2;
 		}
-		var name = player.name + ' (' + score + ')';
+		var name = player.name + " (" + score + ")";
 		if (player.state.cheats) {
-			name = 'CHEATER - ' + player.state.cheats + ' ' + name;
+			name = "CHEATER - " + player.state.cheats + " " + name;
 		}
-		var playerDiv = $('<div>')
+		var playerDiv = $("<div>")
 			.append(
-				$('<p>')
-					.text(name + ' - ')
+				$("<p>")
+					.text(name + " - ")
 					.append(
-						$('<span>')
-							.addClass('player_time')
+						$("<span>")
+							.addClass("player_time")
 							.text(timeToString(player.time))
 					)
 			)
-			.attr('index', i)
-			.addClass('player_div')
-			.addClass('bubble')
-			.appendTo('#players_state');
-		if (isAdmin(i)) playerDiv.addClass('admin_player');
-		if (!player.present) playerDiv.addClass('absent');
+			.attr("index", i)
+			.addClass("player_div")
+			.addClass("bubble")
+			.appendTo("#players_state");
+		if (isAdmin(i)) playerDiv.addClass("admin_player");
+		if (!player.present) playerDiv.addClass("absent");
 		if (player.state.words.length > 0) {
-			var wordsDiv = $('<div>')
-				.addClass('bubble')
-				.addClass('words')
+			var wordsDiv = $("<div>")
+				.addClass("bubble")
+				.addClass("words")
 				.appendTo(playerDiv);
 			for (var j = 0; j < player.state.words.length; j++) {
 				var word = player.state.words[j][0];
@@ -105,29 +105,29 @@ function flip() {
 		var letter = state.pile.pop();
 		state.revealed.push(letter);
 		state.lastWord = -1;
-		sendState('flipped ' + letter);
+		sendState("flipped " + letter);
 	}
 }
 
 function submit() {
 	setTimeout(function() {
-		var word = $('#word')
+		var word = $("#word")
 			.val()
 			.toUpperCase();
 		if (isWord(word)) {
 			var source = spell(word);
 			if (source !== false) {
-				$('#cheats_div').hide();
-				$('#word').val('');
+				$("#cheats_div").hide();
+				$("#word").val("");
 				state.lastWord = word.length;
-				sendState('spelled [' + word + ']' + source);
+				sendState("spelled [" + word + "]" + source);
 			} else {
 				alert("can't spell that word!");
 			}
 		} else {
 			me().state.score--;
-			sendState('tried to spell [' + word + ']');
-			alert('not a word!');
+			sendState("tried to spell [" + word + "]");
+			alert("not a word!");
 		}
 	});
 	return false;
@@ -136,51 +136,51 @@ function submit() {
 function cheat() {
 	var newCheats = me().state.cheats + 1;
 	cheatHelper(function(words) {
-		$('#cheats').empty();
-		$('#cheats_div').show();
+		$("#cheats").empty();
+		$("#cheats_div").show();
 		for (var i = 0; i < words.length; i++) {
-			buildWord(words[i]).appendTo('#cheats');
+			buildWord(words[i]).appendTo("#cheats");
 		}
 		me().state.cheats = newCheats;
-		sendState('cheated and found ' + words.length + ' words');
+		sendState("cheated and found " + words.length + " words");
 	});
 }
 
 function gracePeriodF() {
-	var val = $('#grace_period').val();
+	var val = $("#grace_period").val();
 	if (!val) return;
 	var gracePeriod = state.gracePeriod;
 	state.gracePeriod = Number.parseInt(val);
 	sendState(
-		'updated grace period: ' + gracePeriod + ' to ' + state.gracePeriod
+		"updated grace period: " + gracePeriod + " to " + state.gracePeriod
 	);
 }
 
 function wordLengthF() {
-	var val = $('#word_length').val();
+	var val = $("#word_length").val();
 	if (!val) return;
 	var wordLength = Number.parseInt(val);
 	sendState(
-		'updated word length: ' + state.minimumWordLength + ' to ' + wordLength
+		"updated word length: " + state.minimumWordLength + " to " + wordLength
 	);
 	state.minimumWordLength = wordLength;
 }
 
 function shuffle() {
 	shuffleArray(state.pile);
-	sendState('shuffled');
+	sendState("shuffled");
 }
 
 function buildWord(word) {
-	var text = $('<p>')
-		.addClass('inline')
-		.addClass('space')
+	var text = $("<p>")
+		.addClass("inline")
+		.addClass("space")
 		.text(word);
 
 	$(document).ready(function() {
-		text.attr('title', getDefinition(word));
+		text.attr("title", getDefinition(word));
 	});
-	return $('<div>').append(text);
+	return $("<div>").append(text);
 }
 
 var oldAdvanceTurn = advanceTurn;
