@@ -114,6 +114,7 @@ function submit() {
 		var word = $("#word")
 			.val()
 			.toUpperCase();
+		if (!word) return;
 		if (isWord(word)) {
 			var source = spell(word);
 			if (source !== false) {
